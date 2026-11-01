@@ -1,0 +1,381 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mohamed Fofana, Data Analyst BI</title>
+<meta name="description" content="Portfolio de Mohamed Fofana, Data Analyst BI à Rennes : Power BI, SQL, Python, dbt. Analyses de données logistiques et e-commerce, projets et parcours.">
+<meta property="og:title" content="Mohamed Fofana, Data Analyst BI">
+<meta property="og:description" content="Power BI, SQL, Python, dbt. Analyses de données logistiques et e-commerce.">
+<meta property="og:image" content="https://mohfofana.github.io/assets/mohamed-fofana.jpg">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230F3D5C'/%3E%3Cpath d='M6 22 L13 14 L19 18 L26 9' stroke='%23E4572E' stroke-width='3.5' fill='none'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0F3D5C; --ink-soft: #2B5674; --signal: #E4572E; --slate: #5B6B7A;
+    --line: #D8DFE6; --bg: #F5F7F9; --card: #FFFFFF; --text: #1F2933;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { animation: none !important; } }
+  body { margin: 0; background: var(--bg); color: var(--text);
+         font-family: Archivo, system-ui, sans-serif; font-size: 17px; line-height: 1.6;
+         font-variant-numeric: tabular-nums; }
+  a { color: var(--ink); text-underline-offset: 3px; }
+  a:hover { color: var(--signal); }
+  :focus-visible { outline: 3px solid var(--signal); outline-offset: 3px; }
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 0 16px; }
+
+  /* nav */
+  nav { display: flex; justify-content: space-between; align-items: center; gap: 16px;
+        padding: 18px 0; font-size: 15px; }
+  nav .who { font-weight: 700; text-decoration: none; color: var(--ink); }
+  nav ul { list-style: none; display: flex; gap: 22px; margin: 0; padding: 0; }
+  nav ul a { text-decoration: none; color: var(--slate); }
+  nav ul a:hover { color: var(--ink); }
+
+  /* hero */
+  .hero { display: grid; grid-template-columns: 1.05fr 1fr; gap: 48px; align-items: center;
+          padding: 40px 0 72px; }
+  .id { display: flex; align-items: center; gap: 14px; margin-bottom: 22px; }
+  .id img { width: 64px; height: 64px; border-radius: 50%; object-fit: cover; }
+  .avail { font-size: 14px; color: var(--ink); background: #E3ECF2; padding: 4px 10px; border-radius: 3px; }
+  .avail::before { content: ""; display: inline-block; width: 8px; height: 8px; border-radius: 50%;
+                   background: #2E9D6B; margin-right: 8px; vertical-align: 1px; }
+  h1 { font-stretch: 68%; font-weight: 800; font-size: clamp(52px, 8.5vw, 104px); line-height: 0.92;
+       letter-spacing: -0.015em; color: var(--ink); margin: 0 0 18px; }
+  .role { font-stretch: 90%; font-size: 22px; font-weight: 600; color: var(--ink); margin: 0 0 12px; }
+  .pitch { margin: 0 0 26px; max-width: 52ch; }
+  .actions { display: flex; flex-wrap: wrap; gap: 10px 18px; align-items: center; }
+  .btn { display: inline-block; background: var(--ink); color: #fff; text-decoration: none; font-weight: 600;
+         padding: 12px 20px; border-radius: 3px; }
+  .btn:hover { background: var(--signal); color: #fff; }
+  .actions a:not(.btn) { font-weight: 600; }
+
+  .finding { margin: 0; background: var(--card); border: 1px solid var(--line); padding: 22px 22px 16px; }
+  .finding h2 { font-stretch: 85%; font-size: 22px; line-height: 1.2; color: var(--ink); margin: 0 0 4px; }
+  .finding p { font-size: 15px; color: var(--slate); margin: 0 0 8px; }
+  .finding svg { width: 100%; height: auto; display: block; }
+  .finding svg text { font-family: Archivo, system-ui, sans-serif; }
+  .finding .src { font-size: 14px; margin: 8px 0 0; }
+  .draw { stroke-dasharray: 700; stroke-dashoffset: 700; animation: draw 1.6s 0.3s ease-out forwards; }
+  @keyframes draw { to { stroke-dashoffset: 0; } }
+
+  /* sections */
+  section.block { padding: 64px 0; border-top: 1px solid var(--line); }
+  h2.title { font-stretch: 72%; font-weight: 800; font-size: clamp(34px, 5vw, 52px); line-height: 1;
+             color: var(--ink); margin: 0 0 14px; }
+  .intro { max-width: 66ch; margin: 0 0 36px; }
+
+  /* data platform diagram */
+  .flow { display: grid; grid-template-columns: 1fr 64px 1fr; align-items: center; margin: 0 0 40px; }
+  .flow .src-box { border: 2px solid var(--ink); padding: 16px 18px; background: var(--card); }
+  .flow .src-box b { display: block; color: var(--ink); }
+  .flow .src-box span { font-size: 14px; color: var(--slate); }
+  .flow svg { width: 64px; height: 120px; }
+  .flow .outs { display: grid; gap: 12px; }
+  .flow .outs div { border: 1px solid var(--line); padding: 10px 14px; background: var(--card); font-size: 15px; }
+  .flow .outs b { color: var(--ink); }
+
+  .project { display: grid; grid-template-columns: 1fr 1.2fr; gap: 36px; padding: 30px 0;
+             border-top: 1px solid var(--line); }
+  .project:first-of-type { border-top: 0; }
+  .project h3 { font-stretch: 85%; font-size: 26px; line-height: 1.15; margin: 0 0 8px; color: var(--ink); }
+  .project .q { margin: 0 0 14px; color: var(--slate); }
+  .stack { display: flex; flex-wrap: wrap; gap: 6px; padding: 0; margin: 0 0 16px; list-style: none; }
+  .stack li { font-size: 13px; border: 1px solid var(--line); background: var(--card); padding: 2px 8px; border-radius: 3px; }
+  .links { display: flex; flex-wrap: wrap; gap: 8px 20px; font-weight: 600; }
+  .result { border-left: 4px solid var(--signal); padding: 4px 0 4px 18px; }
+  .result .big { font-stretch: 70%; font-weight: 800; font-size: 56px; line-height: 1; color: var(--signal); }
+  .result p { margin: 6px 0 12px; max-width: 54ch; }
+  .result ul { margin: 0; padding-left: 18px; color: var(--slate); font-size: 15px; }
+  .result li { margin-bottom: 4px; }
+
+  /* dev projects */
+  .dev { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0 40px; }
+  .dev article { padding: 18px 0; border-top: 1px solid var(--line); }
+  .dev h3 { font-size: 19px; margin: 0 0 4px; color: var(--ink); }
+  .dev h3 a { text-decoration: none; }
+  .dev h3 a:hover { text-decoration: underline; }
+  .dev p { margin: 0 0 6px; font-size: 16px; }
+  .dev small { color: var(--slate); font-size: 14px; }
+
+  /* path */
+  .path { list-style: none; margin: 0; padding: 0; }
+  .path li { display: grid; grid-template-columns: 190px 1fr; gap: 24px; padding: 18px 0; border-top: 1px solid var(--line); }
+  .path time { color: var(--slate); font-size: 15px; padding-top: 2px; }
+  .path h3 { margin: 0; font-size: 19px; color: var(--ink); }
+  .path .org { margin: 0 0 6px; font-weight: 600; }
+  .path p { margin: 0; max-width: 70ch; }
+
+  .skills { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+  .skills h3 { font-size: 17px; margin: 0 0 6px; color: var(--ink); }
+  .skills p { margin: 0; color: var(--text); }
+
+  footer { background: var(--ink); color: #fff; padding: 56px 0 40px; margin-top: 40px; }
+  footer h2 { font-stretch: 72%; font-weight: 800; font-size: clamp(34px, 5vw, 52px); line-height: 1; margin: 0 0 14px; }
+  footer p { max-width: 60ch; margin: 0 0 22px; color: #D4DEE7; }
+  footer a { color: #fff; }
+  footer a:hover { color: #FFB59E; }
+  footer .btn { background: var(--signal); }
+  footer .btn:hover { background: #fff; color: var(--ink); }
+  footer .contact { display: flex; flex-wrap: wrap; gap: 10px 24px; align-items: center; }
+  footer .fine { margin-top: 40px; font-size: 13px; color: #9FB3C4; }
+
+  @media (max-width: 860px) {
+    nav ul { display: none; }
+    .hero, .project { grid-template-columns: 1fr; gap: 28px; }
+    .hero { padding-top: 16px; }
+    .flow { grid-template-columns: 1fr; }
+    .flow svg { display: none; }
+    .flow .outs { margin-top: 12px; padding-left: 16px; border-left: 2px solid var(--ink); }
+    .dev, .skills { grid-template-columns: 1fr; }
+    .path li { grid-template-columns: 1fr; gap: 4px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav aria-label="Navigation principale">
+    <a class="who" href="#">Mohamed Fofana</a>
+    <ul>
+      <li><a href="#projets">Projets data</a></li>
+      <li><a href="#dev">Développement</a></li>
+      <li><a href="#parcours">Parcours</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <header class="hero">
+    <div>
+      <div class="id">
+        <img src="assets/mohamed-fofana.jpg" alt="Portrait de Mohamed Fofana" width="64" height="64">
+        <span class="avail">Disponible en CDI dès décembre 2026</span>
+      </div>
+      <h1>Mohamed Fofana</h1>
+      <p class="role">Data Analyst BI, Rennes, mobile en France et en Europe</p>
+      <p class="pitch">Je construis les tableaux de bord Power BI qui pilotent la qualité de service courrier et colis de La Poste en Bretagne et Pays de la Loire. Avant le graphique, il y a les données SAP et SQL Server à modéliser, et une question métier à rendre lisible pour un comité de direction.</p>
+      <div class="actions">
+        <a class="btn" href="assets/CV_Mohamed_Fofana.pdf" download>Télécharger mon CV</a>
+        <a href="https://www.linkedin.com/in/mohamed-aboubakar-fofana">LinkedIn</a>
+        <a href="https://github.com/mohfofana">GitHub</a>
+        <a href="mailto:mohamedaboubakar.fofana@gmail.com">M'écrire</a>
+      </div>
+    </div>
+
+    <figure class="finding" aria-labelledby="finding-title">
+      <h2 id="finding-title">Au-delà de 3 jours de retard, la note client s'effondre</h2>
+      <p>Note moyenne sur 5 selon le retard de livraison, 96&nbsp;470 commandes analysées.</p>
+      <svg viewBox="0 0 520 290" role="img" aria-label="Note moyenne : 4,3 à l'heure, 3,3 pour 1 à 3 jours de retard, 2,1 pour 4 à 7 jours, 1,7 pour 8 à 14 jours, 1,6 pour 15 à 30 jours.">
+        <g stroke="#EEF1F4" stroke-width="1">
+          <line x1="40" x2="505" y1="30" y2="30"/><line x1="40" x2="505" y1="85" y2="85"/>
+          <line x1="40" x2="505" y1="140" y2="140"/><line x1="40" x2="505" y1="195" y2="195"/>
+          <line x1="40" x2="505" y1="250" y2="250"/>
+        </g>
+        <g font-size="12" fill="#5B6B7A" text-anchor="end">
+          <text x="30" y="34">5</text><text x="30" y="89">4</text><text x="30" y="144">3</text>
+          <text x="30" y="199">2</text><text x="30" y="254">1</text>
+        </g>
+        <rect x="176" y="22" width="329" height="234" fill="#E4572E" opacity="0.06"/>
+        <line x1="176" x2="176" y1="22" y2="256" stroke="#E4572E" stroke-dasharray="4 4"/>
+        <text x="184" y="44" font-size="13" fill="#E4572E" font-weight="700">seuil de 3 jours</text>
+        <polyline class="draw" fill="none" stroke="#0F3D5C" stroke-width="3" stroke-linejoin="round"
+          points="70,69.6 152,124.6 234,190 316,213.2 398,216.5 480,193.4"/>
+        <g fill="#0F3D5C"><circle cx="70" cy="69.6" r="5"/><circle cx="152" cy="124.6" r="5"/></g>
+        <g fill="#E4572E"><circle cx="234" cy="190" r="5"/><circle cx="316" cy="213.2" r="5"/><circle cx="398" cy="216.5" r="5"/><circle cx="480" cy="193.4" r="5"/></g>
+        <g font-size="13" font-weight="700" text-anchor="middle">
+          <text x="70" y="56" fill="#0F3D5C">4,3</text><text x="152" y="111" fill="#0F3D5C">3,3</text>
+          <text x="234" y="177" fill="#E4572E">2,1</text><text x="316" y="236" fill="#E4572E">1,7</text>
+          <text x="398" y="239" fill="#E4572E">1,6</text><text x="480" y="180" fill="#E4572E">2,0</text>
+        </g>
+        <g font-size="12" fill="#5B6B7A" text-anchor="middle">
+          <text x="70" y="276">à l'heure</text><text x="152" y="276">1-3 j</text><text x="234" y="276">4-7 j</text>
+          <text x="316" y="276">8-14 j</text><text x="398" y="276">15-30 j</text><text x="480" y="276">30 j et +</text>
+        </g>
+      </svg>
+      <p class="src"><a href="projets/retards-livraison/">Voir l'analyse complète des retards</a></p>
+    </figure>
+  </header>
+</div>
+
+<main>
+  <section class="block" id="projets">
+    <div class="wrap">
+      <h2 class="title">Projets data</h2>
+      <p class="intro">Trois projets construits comme une petite plateforme data : un pipeline qui nettoie et teste 99&nbsp;441 vraies commandes e-commerce, puis deux analyses qui s'appuient dessus. Même logique qu'en entreprise, une seule définition de chaque indicateur pour tous les rapports.</p>
+
+      <div class="flow" aria-hidden="true">
+        <div class="src-box"><b>Pipeline dbt + DuckDB</b><span>8 fichiers bruts, 14 modèles SQL, 32 tests qualité, exécution automatique</span></div>
+        <svg viewBox="0 0 64 120"><path d="M2 60 H30 M30 60 C44 60 44 26 62 26 M30 60 C44 60 44 94 62 94" stroke="#0F3D5C" stroke-width="2" fill="none"/></svg>
+        <div class="outs">
+          <div><b>Retards de livraison</b>, analyse et prédiction</div>
+          <div><b>Segmentation clients</b>, rétention et ciblage</div>
+        </div>
+      </div>
+
+      <article class="project">
+        <div>
+          <h3>Retards de livraison : comprendre et prévoir</h3>
+          <p class="q">Quand la date de livraison promise est-elle rompue, combien ça coûte en satisfaction, et peut-on repérer les commandes à risque dès le paiement ?</p>
+          <ul class="stack"><li>Python</li><li>pandas</li><li>scikit-learn</li><li>Plotly</li><li>Jupyter</li></ul>
+          <div class="links">
+            <a href="projets/retards-livraison/">Dashboard interactif</a>
+            <a href="https://github.com/mohfofana/delivery-delay-prediction/blob/main/notebooks/01_delivery_delays.ipynb">Notebook</a>
+            <a href="https://github.com/mohfofana/delivery-delay-prediction">Code</a>
+          </div>
+        </div>
+        <div class="result">
+          <div class="big">2,26 / 5</div>
+          <p>La note moyenne d'une commande livrée en retard, contre 4,28 à l'heure. 6,8 % des commandes sont concernées, jusqu'à 19 % en mars 2018.</p>
+          <ul>
+            <li>Le temps se perd dans le transport : 26 jours contre 7, alors que les vendeurs ne prennent qu'un jour de plus.</li>
+            <li>Un modèle de gradient boosting, validé sur des mois qu'il n'a jamais vus, détecte 2,7 fois plus de retards qu'un contrôle au hasard.</li>
+            <li>Quatre recommandations chiffrées, dont une date promise calculée sur le délai réel de chaque route.</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="project">
+        <div>
+          <h3>Segmentation clients : obtenir la deuxième commande</h3>
+          <p class="q">97 % des clients n'achètent qu'une fois. Qui cibler, avec quel levier, et combien vaut un point de fidélisation ?</p>
+          <ul class="stack"><li>Python</li><li>scikit-learn (K-means)</li><li>SciPy</li><li>Plotly</li></ul>
+          <div class="links">
+            <a href="projets/segmentation-clients/">Dashboard interactif</a>
+            <a href="https://github.com/mohfofana/customer-segmentation/blob/main/notebooks/01_customer_segmentation.ipynb">Notebook</a>
+            <a href="https://github.com/mohfofana/customer-segmentation">Code</a>
+          </div>
+        </div>
+        <div class="result">
+          <div class="big">-25 %</div>
+          <p>Un premier colis livré en retard réduit d'un quart la probabilité que le client recommande (test statistique, p = 0,002).</p>
+          <ul>
+            <li>Sept segments actionnables, validés par un clustering K-means qui retrouve les mêmes axes.</li>
+            <li>La catégorie du premier achat fait varier le taux de retour du simple au triple.</li>
+            <li>La moitié des deuxièmes commandes arrive dans le mois : la fenêtre pour agir est courte.</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="project">
+        <div>
+          <h3>Pipeline e-commerce : des fichiers bruts aux tables fiables</h3>
+          <p class="q">Comment garantir qu'un « retard » ou un « client » veut dire la même chose dans chaque rapport ?</p>
+          <ul class="stack"><li>dbt</li><li>DuckDB</li><li>SQL</li><li>GitHub Actions</li></ul>
+          <div class="links">
+            <a href="https://github.com/mohfofana/ecommerce-data-pipeline">Code et documentation</a>
+          </div>
+        </div>
+        <div class="result">
+          <div class="big">32 tests</div>
+          <p>Clés uniques, intégrité référentielle, valeurs autorisées et règles métier vérifiées à chaque exécution, avant que la moindre table soit utilisée.</p>
+          <ul>
+            <li>Architecture en couches staging, intermediate et marts, avec une table de faits commandes et ses indicateurs logistiques.</li>
+            <li>Exécution automatique chaque semaine et à chaque modification, export des tables en Parquet.</li>
+          </ul>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="block" id="dev">
+    <div class="wrap">
+      <h2 class="title">Développement</h2>
+      <p class="intro">Avant la data, j'ai appris à livrer des applications complètes. Ça m'aide aujourd'hui à automatiser, à construire des outils internes et à parler le même langage que les équipes techniques.</p>
+      <div class="dev">
+        <article>
+          <h3><a href="https://github.com/mohfofana/Notria">Notria</a></h3>
+          <p>Plateforme d'accompagnement scolaire pour les élèves de 3e : parcours guidés, chat pédagogique avec recherche documentaire (RAG) et sources citées, suivi parent.</p>
+          <small>Next.js, Express, PostgreSQL, pgvector, OpenAI</small>
+        </article>
+        <article>
+          <h3><a href="https://github.com/mohfofana/Moodplae">MoodPlae</a></h3>
+          <p>Recommandation musicale selon l'humeur et le contexte, connectée à l'API Spotify.</p>
+          <small>Python, scikit-learn, FastAPI</small>
+        </article>
+        <article>
+          <h3><a href="https://github.com/mohfofana/moovie_app">Cinescope</a></h3>
+          <p>Application de streaming fullstack : catalogue films, séries et animes, filtres, watchlist et historique.</p>
+          <small>React, NestJS, Prisma, API TMDB</small>
+        </article>
+        <article>
+          <h3><a href="https://github.com/mohfofana/Revolte-TechOps">Revolte TechOps</a></h3>
+          <p>Gestion de tickets avec tableau de bord statistique, commentaires et pièces jointes (<a href="https://github.com/mohfofana/backend_revolt">API</a>).</p>
+          <small>React, TypeScript, NestJS, PostgreSQL</small>
+        </article>
+        <article>
+          <h3><a href="https://github.com/mohfofana/bookroom">Bookroom</a></h3>
+          <p>Réservation de salles : application Android, <a href="https://github.com/mohfofana/bookroom_backend">API</a> et <a href="https://github.com/mohfofana/bookroom_dashboard">tableau d'administration</a>.</p>
+          <small>Kotlin, Express, MongoDB, React</small>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="parcours">
+    <div class="wrap">
+      <h2 class="title">Parcours</h2>
+      <ol class="path" reversed>
+        <li>
+          <time>oct. 2026 – déc. 2026</time>
+          <div><h3>Responsable Qualité de Service, Expérience Client</h3>
+          <p class="org">La Poste, DEX Courrier Colis Bretagne et Pays de la Loire, Rennes</p>
+          <p>Pilotage de la qualité de service régionale, dashboards Power BI pour le comité de direction, analyse multi-sources SAP, SQL Server et bases clients.</p></div>
+        </li>
+        <li>
+          <time>sept. 2025 – sept. 2026</time>
+          <div><h3>Data Analyst BI, alternance</h3>
+          <p class="org">La Poste, Rennes</p>
+          <p>Plus de 15 rapports Power BI automatisés pour le suivi logistique courrier et colis, modélisation DAX et Power Query, automatisations VBA et Power Automate.</p></div>
+        </li>
+        <li>
+          <time>2024 – 2026</time>
+          <div><h3>MSc Data et Intelligence Artificielle</h3>
+          <p class="org">EPITECH Paris</p>
+          <p>Machine learning, deep learning, NLP, data engineering, cloud.</p></div>
+        </li>
+        <li>
+          <time>2024</time>
+          <div><h3>Développeur Fullstack et Data Analyst, stage</h3>
+          <p class="org">Groupe FRAB, Rennes</p>
+          <p>Applications web React, Django et PostgreSQL, analyse des ventes et reportings automatisés.</p></div>
+        </li>
+        <li>
+          <time>2023</time>
+          <div><h3>Data Analyst et Développeur Mobile, stage</h3>
+          <p class="org">Casys Technologie, Abidjan</p>
+          <p>Analyse de données marketing et suivi des KPI commerciaux, applications Flutter et React Native.</p></div>
+        </li>
+        <li>
+          <time>2021 – 2024</time>
+          <div><h3>Licence Informatique</h3>
+          <p class="org">Université de Rennes 1</p></div>
+        </li>
+      </ol>
+
+      <div class="skills" style="margin-top: 48px">
+        <div><h3>BI et visualisation</h3><p>Power BI (DAX, Power Query), Qlik Sense, Excel et VBA, Power Automate, Plotly</p></div>
+        <div><h3>Data et modélisation</h3><p>SQL, Python (pandas, scikit-learn, PySpark), R, dbt, DuckDB</p></div>
+        <div><h3>Plateformes</h3><p>SQL Server, PostgreSQL, SAP, Azure, Microsoft Fabric, Databricks, Airflow</p></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer id="contact">
+  <div class="wrap">
+    <h2>Parlons de votre équipe data</h2>
+    <p>Je cherche un CDI de Data Analyst, Consultant BI ou Analytics Engineer, à partir de décembre 2026, en France, au Luxembourg, en Belgique, en Suisse ou ailleurs en Europe. Français natif, anglais courant.</p>
+    <div class="contact">
+      <a class="btn" href="mailto:mohamedaboubakar.fofana@gmail.com">mohamedaboubakar.fofana@gmail.com</a>
+      <a href="https://www.linkedin.com/in/mohamed-aboubakar-fofana">LinkedIn</a>
+      <a href="https://github.com/mohfofana">GitHub</a>
+      <a href="assets/CV_Mohamed_Fofana.pdf" download>CV en PDF</a>
+    </div>
+    <p class="fine">Les projets data utilisent le jeu de données public d'Olist (Kaggle, licence CC BY-NC-SA 4.0).</p>
+  </div>
+</footer>
+</body>
+</html>
