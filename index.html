@@ -204,14 +204,13 @@
   <section class="block" id="projets">
     <div class="wrap">
       <h2 class="title">Projets data</h2>
-      <p class="intro">Trois projets construits comme une petite plateforme data : un pipeline qui nettoie et teste 99&nbsp;441 vraies commandes e-commerce, puis deux analyses qui s'appuient dessus. Même logique qu'en entreprise, une seule définition de chaque indicateur pour tous les rapports.</p>
+      <p class="intro">Deux projets construits comme une petite plateforme data : un pipeline qui nettoie et teste 99&nbsp;441 vraies commandes e-commerce, puis une analyse qui s'appuie dessus. Même logique qu'en entreprise, une seule définition de chaque indicateur pour tous les rapports.</p>
 
       <div class="flow" aria-hidden="true">
         <div class="src-box"><b>Pipeline dbt + DuckDB</b><span>8 fichiers bruts, 14 modèles SQL, 32 tests qualité, exécution automatique</span></div>
-        <svg viewBox="0 0 64 120"><path d="M2 60 H30 M30 60 C44 60 44 26 62 26 M30 60 C44 60 44 94 62 94" stroke="#0F3D5C" stroke-width="2" fill="none"/></svg>
+        <svg viewBox="0 0 64 120"><path d="M2 60 H62 M52 52 L62 60 L52 68" stroke="#0F3D5C" stroke-width="2" fill="none"/></svg>
         <div class="outs">
           <div><b>Retards de livraison</b>, analyse et prédiction</div>
-          <div><b>Segmentation clients</b>, rétention et ciblage</div>
         </div>
       </div>
 
@@ -233,28 +232,6 @@
             <li>Le temps se perd dans le transport : 26 jours contre 7, alors que les vendeurs ne prennent qu'un jour de plus.</li>
             <li>Un modèle de gradient boosting, validé sur des mois qu'il n'a jamais vus, détecte 2,7 fois plus de retards qu'un contrôle au hasard.</li>
             <li>Quatre recommandations chiffrées, dont une date promise calculée sur le délai réel de chaque route.</li>
-          </ul>
-        </div>
-      </article>
-
-      <article class="project">
-        <div>
-          <h3>Segmentation clients : obtenir la deuxième commande</h3>
-          <p class="q">97 % des clients n'achètent qu'une fois. Qui cibler, avec quel levier, et combien vaut un point de fidélisation ?</p>
-          <ul class="stack"><li>Python</li><li>scikit-learn (K-means)</li><li>SciPy</li><li>Plotly</li></ul>
-          <div class="links">
-            <a href="projets/segmentation-clients/">Dashboard interactif</a>
-            <a href="https://github.com/mohfofana/customer-segmentation/blob/main/notebooks/01_customer_segmentation.ipynb">Notebook</a>
-            <a href="https://github.com/mohfofana/customer-segmentation">Code</a>
-          </div>
-        </div>
-        <div class="result">
-          <div class="big">-25 %</div>
-          <p>Un premier colis livré en retard réduit d'un quart la probabilité que le client recommande (test statistique, p = 0,002).</p>
-          <ul>
-            <li>Sept segments actionnables, validés par un clustering K-means qui retrouve les mêmes axes.</li>
-            <li>La catégorie du premier achat fait varier le taux de retour du simple au triple.</li>
-            <li>La moitié des deuxièmes commandes arrive dans le mois : la fenêtre pour agir est courte.</li>
           </ul>
         </div>
       </article>
