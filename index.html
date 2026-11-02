@@ -1,122 +1,155 @@
 <!doctype html>
-<html lang="fr">
+<html lang="fr" data-lang="fr">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Mohamed Fofana, Data Analyst BI</title>
-<meta name="description" content="Portfolio de Mohamed Fofana, Data Analyst BI à Rennes : Power BI, SQL, Python, dbt. Analyses de données logistiques et e-commerce, projets et parcours.">
+<meta name="description" content="Portfolio de Mohamed Fofana, Data Analyst BI : Power BI, SQL, Python, dbt. Analyses interactives sur 99 441 commandes, stack et parcours.">
 <meta property="og:title" content="Mohamed Fofana, Data Analyst BI">
-<meta property="og:description" content="Power BI, SQL, Python, dbt. Analyses de données logistiques et e-commerce.">
+<meta property="og:description" content="Power BI, SQL, Python, dbt. Analyses interactives sur 99 441 commandes e-commerce.">
 <meta property="og:image" content="https://mohfofana.github.io/assets/mohamed-fofana.jpg">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230F3D5C'/%3E%3Cpath d='M6 22 L13 14 L19 18 L26 9' stroke='%23E4572E' stroke-width='3.5' fill='none'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
 <style>
+  /* Layout: one column of "readings". Ink blue = the norm, signal orange = the anomaly. Data drawn live from real figures. */
   :root {
-    --ink: #0F3D5C; --ink-soft: #2B5674; --signal: #E4572E; --slate: #5B6B7A;
-    --line: #D8DFE6; --bg: #F5F7F9; --card: #FFFFFF; --text: #1F2933;
+    --ink: #0F3D5C; --ink-2: #2B5674; --signal: #E4572E; --ok: #2E9D6B;
+    --slate: #5B6B7A; --line: #D8DFE6; --wash: #E9EFF4; --bg: #F5F7F9; --card: #FFFFFF; --text: #1F2933;
+    --sans: Archivo, system-ui, -apple-system, "Segoe UI", sans-serif;
+    --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
   }
   * { box-sizing: border-box; }
   html { scroll-behavior: smooth; }
-  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { animation: none !important; } }
-  body { margin: 0; background: var(--bg); color: var(--text);
-         font-family: Archivo, system-ui, sans-serif; font-size: 17px; line-height: 1.6;
-         font-variant-numeric: tabular-nums; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before { animation: none !important; transition: none !important; } }
+  body { margin: 0; background: var(--bg); color: var(--text); font-family: var(--sans); font-size: 17px; line-height: 1.6; font-variant-numeric: tabular-nums; }
   a { color: var(--ink); text-underline-offset: 3px; }
   a:hover { color: var(--signal); }
   :focus-visible { outline: 3px solid var(--signal); outline-offset: 3px; }
-  .wrap { max-width: 1120px; margin: 0 auto; padding: 0 16px; }
+  .wrap { max-width: 1140px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+  html[data-lang="fr"] [lang="en"], html[data-lang="en"] [lang="fr"] { display: none !important; }
+  h1, h2, h3 { text-wrap: balance; }
 
-  /* nav */
-  nav { display: flex; justify-content: space-between; align-items: center; gap: 16px;
-        padding: 18px 0; font-size: 15px; }
+  nav { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding-block: 18px; font-size: 15px; }
   nav .who { font-weight: 700; text-decoration: none; color: var(--ink); }
-  nav ul { list-style: none; display: flex; gap: 22px; margin: 0; padding: 0; }
+  nav ul { list-style: none; display: flex; gap: 22px; margin: 0; padding: 0; align-items: center; }
   nav ul a { text-decoration: none; color: var(--slate); }
   nav ul a:hover { color: var(--ink); }
+  .lang { display: inline-flex; border: 1px solid var(--line); border-radius: 3px; overflow: hidden; }
+  .lang button { font: 600 13px var(--sans); border: 0; background: var(--card); color: var(--slate); padding: 5px 10px; cursor: pointer; }
+  .lang button[aria-pressed="true"] { background: var(--ink); color: #fff; }
 
-  /* hero */
-  .hero { display: grid; grid-template-columns: 1.05fr 1fr; gap: 48px; align-items: center;
-          padding: 40px 0 72px; }
-  .id { display: flex; align-items: center; gap: 14px; margin-bottom: 22px; }
+  .hero { display: grid; grid-template-columns: 1fr 1.05fr; gap: 48px; align-items: start; padding-block: 28px 40px; }
+  .hero > * { min-width: 0; }
+  .id { display: flex; align-items: center; gap: 14px; margin-bottom: 22px; flex-wrap: wrap; }
   .id img { width: 64px; height: 64px; border-radius: 50%; object-fit: cover; }
-  .avail { font-size: 14px; color: var(--ink); background: #E3ECF2; padding: 4px 10px; border-radius: 3px; }
-  .avail::before { content: ""; display: inline-block; width: 8px; height: 8px; border-radius: 50%;
-                   background: #2E9D6B; margin-right: 8px; vertical-align: 1px; }
-  h1 { font-stretch: 68%; font-weight: 800; font-size: clamp(52px, 8.5vw, 104px); line-height: 0.92;
-       letter-spacing: -0.015em; color: var(--ink); margin: 0 0 18px; }
+  .avail { font-size: 14px; color: var(--ink); background: var(--wash); padding: 4px 10px; border-radius: 3px; }
+  .avail::before { content: ""; display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--ok); margin-right: 8px; vertical-align: 1px; animation: pulse 2.4s ease-in-out infinite; }
+  @keyframes pulse { 50% { opacity: .35; } }
+  h1 { font-stretch: 66%; font-weight: 800; font-size: clamp(54px, 8.8vw, 108px); line-height: .9; letter-spacing: -0.015em; color: var(--ink); margin: 0 0 18px; }
   .role { font-stretch: 90%; font-size: 22px; font-weight: 600; color: var(--ink); margin: 0 0 12px; }
-  .pitch { margin: 0 0 26px; max-width: 52ch; }
+  .pitch { margin: 0 0 24px; max-width: 52ch; }
   .actions { display: flex; flex-wrap: wrap; gap: 10px 18px; align-items: center; }
-  .btn { display: inline-block; background: var(--ink); color: #fff; text-decoration: none; font-weight: 600;
-         padding: 12px 20px; border-radius: 3px; }
+  .btn { display: inline-block; background: var(--ink); color: #fff; text-decoration: none; font-weight: 600; padding: 12px 20px; border-radius: 3px; }
   .btn:hover { background: var(--signal); color: #fff; }
   .actions a:not(.btn) { font-weight: 600; }
 
-  .finding { margin: 0; background: var(--card); border: 1px solid var(--line); padding: 22px 22px 16px; }
-  .finding h2 { font-stretch: 85%; font-size: 22px; line-height: 1.2; color: var(--ink); margin: 0 0 4px; }
-  .finding p { font-size: 15px; color: var(--slate); margin: 0 0 8px; }
-  .finding svg { width: 100%; height: auto; display: block; }
-  .finding svg text { font-family: Archivo, system-ui, sans-serif; }
-  .finding .src { font-size: 14px; margin: 8px 0 0; }
-  .draw { stroke-dasharray: 700; stroke-dashoffset: 700; animation: draw 1.6s 0.3s ease-out forwards; }
-  @keyframes draw { to { stroke-dashoffset: 0; } }
+  .sim { background: var(--card); border: 1px solid var(--line); padding: 22px; }
+  .sim h2 { font-stretch: 85%; font-size: 23px; line-height: 1.2; color: var(--ink); margin: 0 0 4px; }
+  .sim .sub { font-size: 15px; color: var(--slate); margin: 0 0 14px; }
+  .readout { display: grid; grid-template-columns: auto 1fr; gap: 6px 22px; align-items: end; margin-bottom: 8px; }
+  .readout .big { font-stretch: 68%; font-weight: 800; font-size: 64px; line-height: .9; color: var(--ink); transition: color .2s; }
+  .readout .big.bad { color: var(--signal); }
+  .readout .big small { font-size: 26px; color: var(--slate); font-weight: 600; }
+  .readout .side { font-size: 15px; color: var(--slate); padding-bottom: 6px; }
+  .readout .side b { color: var(--text); font-size: 18px; }
+  .sim svg { width: 100%; height: auto; display: block; overflow: visible; }
+  .sim svg text { font-family: var(--sans); }
+  .slider { display: flex; align-items: center; gap: 14px; margin-top: 6px; }
+  .slider label { font-weight: 600; font-size: 15px; white-space: nowrap; color: var(--ink); min-width: 9.5ch; }
+  input[type=range] { flex: 1; min-width: 0; accent-color: var(--signal); height: 28px; }
+  .sim .src { font-size: 13px; color: var(--slate); margin: 10px 0 0; }
 
-  /* sections */
-  section.block { padding: 64px 0; border-top: 1px solid var(--line); }
-  h2.title { font-stretch: 72%; font-weight: 800; font-size: clamp(34px, 5vw, 52px); line-height: 1;
-             color: var(--ink); margin: 0 0 14px; }
-  .intro { max-width: 66ch; margin: 0 0 36px; }
+  .counters { display: grid; grid-template-columns: repeat(4, 1fr); border-block: 1px solid var(--line); }
+  .counter { padding: 20px 18px 18px 0; }
+  .counter + .counter { padding-left: 18px; border-left: 1px solid var(--line); }
+  .counter b { display: block; font-stretch: 68%; font-weight: 800; font-size: 46px; line-height: 1; color: var(--ink); }
+  .counter span { font-size: 14px; color: var(--slate); }
 
-  /* data platform diagram */
-  .flow { display: grid; grid-template-columns: 1fr 64px 1fr; align-items: center; margin: 0 0 40px; }
-  .flow .src-box { border: 2px solid var(--ink); padding: 16px 18px; background: var(--card); }
-  .flow .src-box b { display: block; color: var(--ink); }
-  .flow .src-box span { font-size: 14px; color: var(--slate); }
-  .flow svg { width: 64px; height: 120px; }
-  .flow .outs { display: grid; gap: 12px; }
-  .flow .outs div { border: 1px solid var(--line); padding: 10px 14px; background: var(--card); font-size: 15px; }
-  .flow .outs b { color: var(--ink); }
+  section.block { padding-block: 64px; }
+  h2.title { font-stretch: 70%; font-weight: 800; font-size: clamp(36px, 5vw, 56px); line-height: 1; color: var(--ink); margin: 0 0 14px; }
+  .intro { max-width: 66ch; margin: 0 0 32px; }
 
-  .project { display: grid; grid-template-columns: 1fr 1.2fr; gap: 36px; padding: 30px 0;
-             border-top: 1px solid var(--line); }
-  .project:first-of-type { border-top: 0; }
-  .project h3 { font-stretch: 85%; font-size: 26px; line-height: 1.15; margin: 0 0 8px; color: var(--ink); }
+  .project { display: grid; grid-template-columns: 1fr 1.15fr; gap: 40px; padding-block: 34px; border-top: 1px solid var(--line); }
+  .project > * { min-width: 0; }
+  .project h3 { font-stretch: 85%; font-size: 27px; line-height: 1.15; margin: 0 0 8px; color: var(--ink); }
   .project .q { margin: 0 0 14px; color: var(--slate); }
-  .stack { display: flex; flex-wrap: wrap; gap: 6px; padding: 0; margin: 0 0 16px; list-style: none; }
-  .stack li { font-size: 13px; border: 1px solid var(--line); background: var(--card); padding: 2px 8px; border-radius: 3px; }
+  .finding { font-stretch: 70%; font-weight: 800; font-size: 50px; line-height: 1; color: var(--signal); margin: 0 0 6px; }
+  .finding + p { margin: 0 0 14px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; padding: 0; margin: 0 0 16px; list-style: none; }
+  .chips li { font: 13px var(--mono); border: 1px solid var(--line); background: var(--card); padding: 2px 8px; border-radius: 3px; }
   .links { display: flex; flex-wrap: wrap; gap: 8px 20px; font-weight: 600; }
-  .result { border-left: 4px solid var(--signal); padding: 4px 0 4px 18px; }
-  .result .big { font-stretch: 70%; font-weight: 800; font-size: 56px; line-height: 1; color: var(--signal); }
-  .result p { margin: 6px 0 12px; max-width: 54ch; }
-  .result ul { margin: 0; padding-left: 18px; color: var(--slate); font-size: 15px; }
-  .result li { margin-bottom: 4px; }
+  details { margin-top: 16px; border-top: 1px dashed var(--line); padding-top: 10px; }
+  summary { cursor: pointer; font-weight: 600; color: var(--ink); }
+  details ul { margin: 8px 0 0; padding-left: 18px; color: var(--slate); font-size: 15px; }
+  details li { margin-bottom: 5px; }
+  .viz { background: var(--card); border: 1px solid var(--line); padding: 16px 16px 10px; position: relative; align-self: start; }
+  .viz .cap { font-size: 14px; color: var(--slate); margin: 0 0 8px; }
+  .viz svg { width: 100%; height: auto; display: block; }
+  .viz svg text { font-family: var(--sans); }
+  .tip { position: absolute; pointer-events: none; background: var(--ink); color: #fff; font-size: 13px; padding: 4px 8px; border-radius: 3px; white-space: nowrap; transform: translate(-50%, -120%); z-index: 2; }
+  .tip[hidden] { display: none; }
 
-  /* dev projects */
-  .dev { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0 40px; }
-  .dev article { padding: 18px 0; border-top: 1px solid var(--line); }
-  .dev h3 { font-size: 19px; margin: 0 0 4px; color: var(--ink); }
-  .dev h3 a { text-decoration: none; }
-  .dev h3 a:hover { text-decoration: underline; }
-  .dev p { margin: 0 0 6px; font-size: 16px; }
-  .dev small { color: var(--slate); font-size: 14px; }
+  .stack-head { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 12px; margin-bottom: 14px; }
+  .seg { display: inline-flex; border: 1px solid var(--line); border-radius: 3px; overflow: hidden; }
+  .seg button { font: 600 14px var(--sans); border: 0; background: var(--card); color: var(--slate); padding: 7px 14px; cursor: pointer; }
+  .seg button[aria-pressed="true"] { background: var(--ink); color: #fff; }
+  .readline { font-size: 15px; color: var(--slate); min-height: 1.6em; margin: 0 0 10px; }
+  .readline b { color: var(--ink); }
+  .scroller { overflow-x: auto; border: 1px solid var(--line); background: var(--card); }
+  table.matrix { border-collapse: collapse; font-size: 14px; width: 100%; }
+  .matrix th, .matrix td { border-bottom: 1px solid #EEF1F4; padding: 0; text-align: center; }
+  .matrix thead th { font-weight: 600; font-size: 12.5px; color: var(--slate); vertical-align: bottom; padding: 10px 6px 8px; line-height: 1.2; }
+  .matrix thead th.grp { font-size: 12px; color: var(--ink); border-bottom: 1px solid var(--line); padding: 8px 4px 4px; }
+  .matrix tbody th { text-align: left; font-weight: 600; padding: 0; white-space: nowrap; }
+  .matrix tbody th button { all: unset; display: block; cursor: pointer; padding: 7px 12px; font: 600 14px var(--mono); color: var(--text); }
+  .matrix tbody th button:hover { color: var(--signal); }
+  .matrix tbody th button:focus-visible { outline: 3px solid var(--signal); outline-offset: -3px; }
+  .cell { width: 100%; height: 34px; display: grid; place-items: center; }
+  .dot { width: 14px; height: 14px; border-radius: 3px; background: var(--ink); transition: transform .15s, background .15s; }
+  .matrix tr.on .dot { background: var(--signal); transform: scale(1.25); }
+  .matrix tr.on th button { color: var(--signal); }
+  .matrix tr.dim { opacity: .35; }
+  .matrix .dev { display: none; }
+  .matrix.all .dev { display: table-cell; }
+  .matrix tr.devrow { display: none; }
+  .matrix.all tr.devrow { display: table-row; }
+  .alsos { margin: 14px 0 0; font-size: 15px; color: var(--slate); }
 
-  /* path */
-  .path { list-style: none; margin: 0; padding: 0; }
-  .path li { display: grid; grid-template-columns: 190px 1fr; gap: 24px; padding: 18px 0; border-top: 1px solid var(--line); }
-  .path time { color: var(--slate); font-size: 15px; padding-top: 2px; }
-  .path h3 { margin: 0; font-size: 19px; color: var(--ink); }
-  .path .org { margin: 0 0 6px; font-weight: 600; }
-  .path p { margin: 0; max-width: 70ch; }
+  .devlist { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0 32px; }
+  .devlist article { padding-block: 14px; border-top: 1px solid var(--line); min-width: 0; }
+  .devlist h4 { font-size: 17px; margin: 0 0 2px; }
+  .devlist h4 a { text-decoration: none; }
+  .devlist p { margin: 0 0 4px; font-size: 15px; }
+  .devlist small { color: var(--slate); font: 12.5px var(--mono); }
 
-  .skills { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
-  .skills h3 { font-size: 17px; margin: 0 0 6px; color: var(--ink); }
-  .skills p { margin: 0; color: var(--text); }
+  .track { list-style: none; margin: 0; padding: 0; position: relative; }
+  .track::before { content: ""; position: absolute; left: 7px; top: 8px; bottom: 8px; width: 2px; background: var(--line); }
+  .track li { position: relative; display: grid; grid-template-columns: 170px 1fr; gap: 24px; padding: 0 0 26px 34px; }
+  .track li > * { min-width: 0; }
+  .track li::before { content: ""; position: absolute; left: 0; top: 6px; width: 16px; height: 16px; border-radius: 50%; background: var(--card); border: 3px solid var(--ink); box-sizing: border-box; }
+  .track li.now::before { background: var(--signal); border-color: var(--signal); box-shadow: 0 0 0 5px rgba(228,87,46,.18); }
+  .track time { font: 14px var(--mono); color: var(--slate); padding-top: 3px; }
+  .status { display: inline-block; font-size: 12.5px; font-weight: 600; padding: 1px 8px; border-radius: 3px; background: var(--wash); color: var(--ink); margin-left: 8px; vertical-align: 2px; }
+  .now .status { background: #FCE3DA; color: #A63A1B; }
+  .track h3 { margin: 0; font-size: 19px; color: var(--ink); }
+  .track .org { margin: 0 0 4px; font-weight: 600; }
+  .track p { margin: 0; max-width: 70ch; }
 
-  footer { background: var(--ink); color: #fff; padding: 56px 0 40px; margin-top: 40px; }
-  footer h2 { font-stretch: 72%; font-weight: 800; font-size: clamp(34px, 5vw, 52px); line-height: 1; margin: 0 0 14px; }
-  footer p { max-width: 60ch; margin: 0 0 22px; color: #D4DEE7; }
+  footer { background: var(--ink); color: #fff; padding-block: 56px 40px; margin-top: 24px; }
+  footer h2 { font-stretch: 70%; font-weight: 800; font-size: clamp(36px, 5vw, 56px); line-height: 1; margin: 0 0 14px; }
+  footer p { max-width: 62ch; margin: 0 0 22px; color: #D4DEE7; }
   footer a { color: #fff; }
   footer a:hover { color: #FFB59E; }
   footer .btn { background: var(--signal); }
@@ -124,235 +157,427 @@
   footer .contact { display: flex; flex-wrap: wrap; gap: 10px 24px; align-items: center; }
   footer .fine { margin-top: 40px; font-size: 13px; color: #9FB3C4; }
 
-  @media (max-width: 860px) {
-    nav ul { display: none; }
-    .hero, .project { grid-template-columns: 1fr; gap: 28px; }
-    .hero { padding-top: 16px; }
-    .flow { grid-template-columns: 1fr; }
-    .flow svg { display: none; }
-    .flow .outs { margin-top: 12px; padding-left: 16px; border-left: 2px solid var(--ink); }
-    .dev, .skills { grid-template-columns: 1fr; }
-    .path li { grid-template-columns: 1fr; gap: 4px; }
+  @media (max-width: 900px) {
+    nav ul li:not(.keep) { display: none; }
+    .hero, .project { grid-template-columns: 1fr; gap: 26px; }
+    .counters { grid-template-columns: 1fr 1fr; }
+    .counter:nth-child(3) { padding-left: 0; border-left: 0; }
+    .counter:nth-child(n+3) { border-top: 1px solid var(--line); }
+    .devlist { grid-template-columns: 1fr; }
+    .track li { grid-template-columns: 1fr; gap: 2px; }
+    .readout .big { font-size: 54px; }
+    footer .btn { word-break: break-all; }
   }
 </style>
 </head>
 <body>
 <div class="wrap">
-  <nav aria-label="Navigation principale">
+  <nav aria-label="Navigation">
     <a class="who" href="#">Mohamed Fofana</a>
     <ul>
-      <li><a href="#projets">Projets data</a></li>
-      <li><a href="#dev">Développement</a></li>
-      <li><a href="#parcours">Parcours</a></li>
+      <li><a href="#projets"><span lang="fr">Projets</span><span lang="en">Projects</span></a></li>
+      <li><a href="#stack">Stack</a></li>
+      <li><a href="#parcours"><span lang="fr">Parcours</span><span lang="en">Experience</span></a></li>
       <li><a href="#contact">Contact</a></li>
+      <li class="keep"><span class="lang" role="group" aria-label="Langue / Language"><button type="button" data-set-lang="fr" aria-pressed="true">FR</button><button type="button" data-set-lang="en" aria-pressed="false">EN</button></span></li>
     </ul>
   </nav>
 
   <header class="hero">
     <div>
       <div class="id">
-        <img src="assets/mohamed-fofana.jpg" alt="Portrait de Mohamed Fofana" width="64" height="64">
-        <span class="avail">Disponible en CDI dès décembre 2026</span>
+        <img src="assets/mohamed-fofana.jpg" alt="Mohamed Fofana" width="64" height="64">
+        <span class="avail"><span lang="fr">Disponible en CDI dès décembre 2026</span><span lang="en">Available for a permanent role from December 2026</span></span>
       </div>
       <h1>Mohamed Fofana</h1>
-      <p class="role">Data Analyst BI, Rennes, mobile en France et en Europe</p>
-      <p class="pitch">Je construis les tableaux de bord Power BI qui pilotent la qualité de service courrier et colis de La Poste en Bretagne et Pays de la Loire. Avant le graphique, il y a les données SAP et SQL Server à modéliser, et une question métier à rendre lisible pour un comité de direction.</p>
+      <p class="role"><span lang="fr">Data Analyst BI, Rennes, mobile en France, en Europe et au Canada</span><span lang="en">BI Data Analyst, Rennes, open to France, Europe and Canada</span></p>
+      <p class="pitch"><span lang="fr">Je construis les tableaux de bord Power BI qui pilotent la qualité de service courrier et colis de La Poste en Bretagne et Pays de la Loire. Mon travail commence avant le graphique : comprendre la décision à prendre, puis modéliser les données SAP et SQL Server qui y répondent.</span><span lang="en">I build the Power BI dashboards that steer mail and parcel service quality for La Poste in Brittany and Pays de la Loire. My work starts before the chart: understanding the decision to make, then modelling the SAP and SQL Server data that answers it.</span></p>
       <div class="actions">
-        <a class="btn" href="assets/CV_Mohamed_Fofana.pdf" download>Télécharger mon CV</a>
+        <a class="btn" href="assets/CV_Mohamed_Fofana.pdf" download><span lang="fr">Télécharger mon CV</span><span lang="en">Download my resume</span></a>
         <a href="https://www.linkedin.com/in/mohamed-aboubakar-fofana">LinkedIn</a>
         <a href="https://github.com/mohfofana">GitHub</a>
-        <a href="mailto:mohamedaboubakar.fofana@gmail.com">M'écrire</a>
+        <a href="#contact"><span lang="fr">Me contacter</span><span lang="en">Contact me</span></a>
       </div>
     </div>
 
-    <figure class="finding" aria-labelledby="finding-title">
-      <h2 id="finding-title">Au-delà de 3 jours de retard, la note client s'effondre</h2>
-      <p>Note moyenne sur 5 selon le retard de livraison, 96&nbsp;470 commandes analysées.</p>
-      <svg viewBox="0 0 520 290" role="img" aria-label="Note moyenne : 4,3 à l'heure, 3,3 pour 1 à 3 jours de retard, 2,1 pour 4 à 7 jours, 1,7 pour 8 à 14 jours, 1,6 pour 15 à 30 jours.">
-        <g stroke="#EEF1F4" stroke-width="1">
-          <line x1="40" x2="505" y1="30" y2="30"/><line x1="40" x2="505" y1="85" y2="85"/>
-          <line x1="40" x2="505" y1="140" y2="140"/><line x1="40" x2="505" y1="195" y2="195"/>
-          <line x1="40" x2="505" y1="250" y2="250"/>
-        </g>
-        <g font-size="12" fill="#5B6B7A" text-anchor="end">
-          <text x="30" y="34">5</text><text x="30" y="89">4</text><text x="30" y="144">3</text>
-          <text x="30" y="199">2</text><text x="30" y="254">1</text>
-        </g>
-        <rect x="176" y="22" width="329" height="234" fill="#E4572E" opacity="0.06"/>
-        <line x1="176" x2="176" y1="22" y2="256" stroke="#E4572E" stroke-dasharray="4 4"/>
-        <text x="184" y="44" font-size="13" fill="#E4572E" font-weight="700">seuil de 3 jours</text>
-        <polyline class="draw" fill="none" stroke="#0F3D5C" stroke-width="3" stroke-linejoin="round"
-          points="70,69.6 152,124.6 234,190 316,213.2 398,216.5 480,193.4"/>
-        <g fill="#0F3D5C"><circle cx="70" cy="69.6" r="5"/><circle cx="152" cy="124.6" r="5"/></g>
-        <g fill="#E4572E"><circle cx="234" cy="190" r="5"/><circle cx="316" cy="213.2" r="5"/><circle cx="398" cy="216.5" r="5"/><circle cx="480" cy="193.4" r="5"/></g>
-        <g font-size="13" font-weight="700" text-anchor="middle">
-          <text x="70" y="56" fill="#0F3D5C">4,3</text><text x="152" y="111" fill="#0F3D5C">3,3</text>
-          <text x="234" y="177" fill="#E4572E">2,1</text><text x="316" y="236" fill="#E4572E">1,7</text>
-          <text x="398" y="239" fill="#E4572E">1,6</text><text x="480" y="180" fill="#E4572E">2,0</text>
-        </g>
-        <g font-size="12" fill="#5B6B7A" text-anchor="middle">
-          <text x="70" y="276">à l'heure</text><text x="152" y="276">1-3 j</text><text x="234" y="276">4-7 j</text>
-          <text x="316" y="276">8-14 j</text><text x="398" y="276">15-30 j</text><text x="480" y="276">30 j et +</text>
-        </g>
-      </svg>
-      <p class="src"><a href="projets/retards-livraison/">Voir l'analyse complète des retards</a></p>
-    </figure>
+    <aside class="sim" aria-labelledby="sim-title">
+      <h2 id="sim-title"><span lang="fr">Combien coûte un jour de retard ?</span><span lang="en">What does one day of delay cost?</span></h2>
+      <p class="sub"><span lang="fr">Faites glisser le curseur. Note client mesurée sur 96 470 livraisons réelles.</span><span lang="en">Drag the slider. Customer rating measured on 96,470 real deliveries.</span></p>
+      <div class="readout" aria-live="polite">
+        <div class="big" id="sim-score">4,28<small>/5</small></div>
+        <div class="side"><b id="sim-neg">10 %</b> <span lang="fr">des clients mettent 1 ou 2 étoiles</span><span lang="en">of customers give 1 or 2 stars</span><br><span id="sim-n">89 936</span> <span lang="fr">commandes dans ce cas</span><span lang="en">orders in this case</span></div>
+      </div>
+      <svg id="sim-chart" viewBox="0 0 520 210" role="img" aria-label="Note moyenne selon les jours de retard"></svg>
+      <div class="slider">
+        <label for="delay" id="delay-label">à l'heure</label>
+        <input type="range" id="delay" min="0" max="16" step="1" value="0">
+      </div>
+      <p class="src"><span lang="fr">Source : mon analyse des</span><span lang="en">Source: my analysis of</span> <a href="projets/retards-livraison/"><span lang="fr">retards de livraison</span><span lang="en">delivery delays</span></a> (Olist, 2016-2018).</p>
+    </aside>
   </header>
+
+  <div class="counters">
+    <div class="counter"><b data-count="99441">99 441</b><span lang="fr">commandes modélisées et testées</span><span lang="en">orders modelled and tested</span></div>
+    <div class="counter"><b data-count="47" data-suffix="/47">47/47</b><span lang="fr">étapes dbt au vert à chaque exécution</span><span lang="en">dbt steps green on every run</span></div>
+    <div class="counter"><b data-count="15" data-prefix="+">+15</b><span lang="fr">rapports Power BI déployés à La Poste</span><span lang="en">Power BI reports deployed at La Poste</span></div>
+    <div class="counter"><b data-count="4">4</b><span lang="fr">sources croisées pour le comité de direction</span><span lang="en">sources combined for the leadership team</span></div>
+  </div>
 </div>
 
 <main>
   <section class="block" id="projets">
     <div class="wrap">
-      <h2 class="title">Projets data</h2>
-      <p class="intro">Deux projets construits comme une petite plateforme data : un pipeline qui nettoie et teste 99&nbsp;441 vraies commandes e-commerce, puis une analyse qui s'appuie dessus. Même logique qu'en entreprise, une seule définition de chaque indicateur pour tous les rapports.</p>
-
-      <div class="flow" aria-hidden="true">
-        <div class="src-box"><b>Pipeline dbt + DuckDB</b><span>8 fichiers bruts, 14 modèles SQL, 32 tests qualité, exécution automatique</span></div>
-        <svg viewBox="0 0 64 120"><path d="M2 60 H62 M52 52 L62 60 L52 68" stroke="#0F3D5C" stroke-width="2" fill="none"/></svg>
-        <div class="outs">
-          <div><b>Retards de livraison</b>, analyse et prédiction</div>
-        </div>
-      </div>
+      <h2 class="title"><span lang="fr">Projets data</span><span lang="en">Data projects</span></h2>
+      <p class="intro"><span lang="fr">Une petite plateforme data construite sur 99 441 vraies commandes e-commerce : un pipeline qui nettoie et teste les données, puis deux analyses qui s'appuient dessus. Une seule définition de chaque indicateur pour tous les rapports, comme en entreprise.</span><span lang="en">A small data platform built on 99,441 real e-commerce orders: a pipeline that cleans and tests the data, then two analyses built on top of it. One definition per metric across every report, as in a real company.</span></p>
 
       <article class="project">
         <div>
-          <h3>Retards de livraison : comprendre et prévoir</h3>
-          <p class="q">Quand la date de livraison promise est-elle rompue, combien ça coûte en satisfaction, et peut-on repérer les commandes à risque dès le paiement ?</p>
-          <ul class="stack"><li>Python</li><li>pandas</li><li>scikit-learn</li><li>Plotly</li><li>Jupyter</li></ul>
+          <h3><span lang="fr">Retards de livraison : comprendre et prévoir</span><span lang="en">Delivery delays: understand and predict</span></h3>
+          <p class="q"><span lang="fr">Quand la date promise est-elle rompue, combien ça coûte, et peut-on repérer les commandes à risque dès le paiement ?</span><span lang="en">When is the promised date broken, what does it cost, and can risky orders be flagged at checkout?</span></p>
+          <p class="finding">x2,7</p>
+          <p><span lang="fr">Mon modèle, validé sur des mois qu'il n'a jamais vus, repère 2,7 fois plus de retards qu'un contrôle au hasard. Le temps se perd dans le transport : 26 jours contre 7.</span><span lang="en">My model, validated on months it never saw, catches 2.7 times more late orders than random checks. Time is lost in transport: 26 days vs 7.</span></p>
+          <ul class="chips"><li>Python</li><li>pandas</li><li>scikit-learn</li><li>Plotly</li></ul>
           <div class="links">
-            <a href="projets/retards-livraison/">Dashboard interactif</a>
+            <a href="projets/retards-livraison/">Dashboard</a>
             <a href="https://github.com/mohfofana/delivery-delay-prediction/blob/main/notebooks/01_delivery_delays.ipynb">Notebook</a>
             <a href="https://github.com/mohfofana/delivery-delay-prediction">Code</a>
           </div>
+          <details>
+            <summary><span lang="fr">Comment je l'ai fait</span><span lang="en">How I did it</span></summary>
+            <ul>
+              <li lang="fr">Variables connues au moment du paiement uniquement, pour éviter toute fuite d'information.</li><li lang="en">Only features known at checkout, to avoid any information leakage.</li>
+              <li lang="fr">Historique du vendeur et de la route calculé sur les commandes déjà livrées, vérifié par un test automatisé.</li><li lang="en">Seller and route history computed on already delivered orders, checked by an automated test.</li>
+              <li lang="fr">Découpage par date (avant et après mars 2018) plutôt qu'aléatoire. ROC-AUC 0,73, présenté sans l'embellir.</li><li lang="en">Time-based split (before and after March 2018) instead of random. ROC-AUC 0.73, reported as is.</li>
+            </ul>
+          </details>
         </div>
-        <div class="result">
-          <div class="big">2,26 / 5</div>
-          <p>La note moyenne d'une commande livrée en retard, contre 4,28 à l'heure. 6,8 % des commandes sont concernées, jusqu'à 19 % en mars 2018.</p>
-          <ul>
-            <li>Le temps se perd dans le transport : 26 jours contre 7, alors que les vendeurs ne prennent qu'un jour de plus.</li>
-            <li>Un modèle de gradient boosting, validé sur des mois qu'il n'a jamais vus, détecte 2,7 fois plus de retards qu'un contrôle au hasard.</li>
-            <li>Quatre recommandations chiffrées, dont une date promise calculée sur le délai réel de chaque route.</li>
-          </ul>
+        <div class="viz">
+          <p class="cap"><span lang="fr">Part des commandes livrées en retard, par mois d'achat. Survolez la courbe.</span><span lang="en">Share of orders delivered late, by purchase month. Hover the line.</span></p>
+          <svg id="viz-late" viewBox="0 0 560 250" role="img" aria-label="Taux de retard mensuel, pic à 19 % en mars 2018"></svg>
+          <div class="tip" id="tip-late" hidden></div>
         </div>
       </article>
 
       <article class="project">
         <div>
-          <h3>Pipeline e-commerce : des fichiers bruts aux tables fiables</h3>
-          <p class="q">Comment garantir qu'un « retard » ou un « client » veut dire la même chose dans chaque rapport ?</p>
-          <ul class="stack"><li>dbt</li><li>DuckDB</li><li>SQL</li><li>GitHub Actions</li></ul>
+          <h3><span lang="fr">Segmentation clients : obtenir la deuxième commande</span><span lang="en">Customer segmentation: winning the second order</span></h3>
+          <p class="q"><span lang="fr">97 % des clients n'achètent qu'une fois. Qui cibler, avec quel levier ?</span><span lang="en">97% of customers buy only once. Whom to target, with which lever?</span></p>
+          <p class="finding">-25 %</p>
+          <p><span lang="fr">Un premier colis livré en retard réduit d'un quart la probabilité de recommander (test statistique, p = 0,002).</span><span lang="en">A late first delivery cuts the chance of a repeat order by a quarter (statistical test, p = 0.002).</span></p>
+          <ul class="chips"><li>Python</li><li>scikit-learn</li><li>K-means</li><li>SciPy</li><li>Plotly</li></ul>
           <div class="links">
-            <a href="https://github.com/mohfofana/ecommerce-data-pipeline">Code et documentation</a>
+            <a href="projets/segmentation-clients/">Dashboard</a>
+            <a href="https://github.com/mohfofana/customer-segmentation/blob/main/notebooks/01_customer_segmentation.ipynb">Notebook</a>
+            <a href="https://github.com/mohfofana/customer-segmentation">Code</a>
           </div>
+          <details>
+            <summary><span lang="fr">Comment je l'ai fait</span><span lang="en">How I did it</span></summary>
+            <ul>
+              <li lang="fr">Sept segments métier (récence, valeur, fidélité, satisfaction) que l'équipe CRM peut expliquer et maintenir.</li><li lang="en">Seven business segments (recency, value, loyalty, satisfaction) a CRM team can explain and maintain.</li>
+              <li lang="fr">Validation par un K-means qui retrouve les mêmes axes.</li><li lang="en">Validated by a K-means that finds the same axes.</li>
+              <li lang="fr">Fenêtre d'observation de 6 mois pour ne pas confondre clients récents et clients perdus.</li><li lang="en">Six-month observation window so recent customers are not mistaken for churned ones.</li>
+            </ul>
+          </details>
         </div>
-        <div class="result">
-          <div class="big">32 tests</div>
-          <p>Clés uniques, intégrité référentielle, valeurs autorisées et règles métier vérifiées à chaque exécution, avant que la moindre table soit utilisée.</p>
-          <ul>
-            <li>Architecture en couches staging, intermediate et marts, avec une table de faits commandes et ses indicateurs logistiques.</li>
-            <li>Exécution automatique chaque semaine et à chaque modification, export des tables en Parquet.</li>
-          </ul>
+        <div class="viz">
+          <p class="cap"><span lang="fr">Poids de chaque segment : part des clients (gris) et part du chiffre d'affaires (couleur). Survolez une ligne.</span><span lang="en">Weight of each segment: share of customers (grey) and of revenue (colour). Hover a row.</span></p>
+          <svg id="viz-seg" viewBox="0 0 560 300" role="img" aria-label="Part des clients et du chiffre d'affaires par segment"></svg>
+          <div class="tip" id="tip-seg" hidden></div>
+        </div>
+      </article>
+
+      <article class="project">
+        <div>
+          <h3><span lang="fr">Pipeline e-commerce : des fichiers bruts aux tables fiables</span><span lang="en">E-commerce pipeline: from raw files to trusted tables</span></h3>
+          <p class="q"><span lang="fr">Comment garantir qu'un « retard » ou un « client » veut dire la même chose dans chaque rapport ?</span><span lang="en">How do you make "late" or "customer" mean the same thing in every report?</span></p>
+          <p class="finding">32 tests</p>
+          <p><span lang="fr">Clés uniques, intégrité référentielle et règles métier vérifiées à chaque exécution, avant qu'une table soit utilisée.</span><span lang="en">Unique keys, referential integrity and business rules checked on every run, before any table is used.</span></p>
+          <ul class="chips"><li>dbt</li><li>DuckDB</li><li>SQL</li><li>GitHub Actions</li></ul>
+          <div class="links"><a href="https://github.com/mohfofana/ecommerce-data-pipeline"><span lang="fr">Code et documentation</span><span lang="en">Code and docs</span></a></div>
+          <details>
+            <summary><span lang="fr">Comment je l'ai fait</span><span lang="en">How I did it</span></summary>
+            <ul>
+              <li lang="fr">Couches staging, intermediate et marts, avec une table de faits commandes et ses indicateurs logistiques.</li><li lang="en">Staging, intermediate and mart layers, with an orders fact table and its logistics KPIs.</li>
+              <li lang="fr">Exécution automatique chaque semaine et à chaque modification, export des tables en Parquet.</li><li lang="en">Automatic run every week and on every change, tables exported to Parquet.</li>
+            </ul>
+          </details>
+        </div>
+        <div class="viz">
+          <p class="cap"><span lang="fr">Lignage des données. Survolez une couche.</span><span lang="en">Data lineage. Hover a layer.</span></p>
+          <svg id="viz-dag" viewBox="0 0 560 260" role="img" aria-label="8 fichiers bruts, 7 modèles staging, 2 intermédiaires, 5 marts"></svg>
+          <div class="tip" id="tip-dag" hidden></div>
         </div>
       </article>
     </div>
   </section>
 
-  <section class="block" id="dev">
+  <section class="block" id="stack" style="background: var(--card); border-block: 1px solid var(--line);">
     <div class="wrap">
-      <h2 class="title">Développement</h2>
-      <p class="intro">Avant la data, j'ai appris à livrer des applications complètes. Ça m'aide aujourd'hui à automatiser, à construire des outils internes et à parler le même langage que les équipes techniques.</p>
-      <div class="dev">
-        <article>
-          <h3><a href="https://github.com/mohfofana/Notria">Notria</a></h3>
-          <p>Plateforme d'accompagnement scolaire pour les élèves de 3e : parcours guidés, chat pédagogique avec recherche documentaire (RAG) et sources citées, suivi parent.</p>
-          <small>Next.js, Express, PostgreSQL, pgvector, OpenAI</small>
-        </article>
-        <article>
-          <h3><a href="https://github.com/mohfofana/Moodplae">MoodPlae</a></h3>
-          <p>Recommandation musicale selon l'humeur et le contexte, connectée à l'API Spotify.</p>
-          <small>Python, scikit-learn, FastAPI</small>
-        </article>
-        <article>
-          <h3><a href="https://github.com/mohfofana/moovie_app">Cinescope</a></h3>
-          <p>Application de streaming fullstack : catalogue films, séries et animes, filtres, watchlist et historique.</p>
-          <small>React, NestJS, Prisma, API TMDB</small>
-        </article>
-        <article>
-          <h3><a href="https://github.com/mohfofana/Revolte-TechOps">Revolte TechOps</a></h3>
-          <p>Gestion de tickets avec tableau de bord statistique, commentaires et pièces jointes (<a href="https://github.com/mohfofana/backend_revolt">API</a>).</p>
-          <small>React, TypeScript, NestJS, PostgreSQL</small>
-        </article>
-        <article>
-          <h3><a href="https://github.com/mohfofana/bookroom">Bookroom</a></h3>
-          <p>Réservation de salles : application Android, <a href="https://github.com/mohfofana/bookroom_backend">API</a> et <a href="https://github.com/mohfofana/bookroom_dashboard">tableau d'administration</a>.</p>
-          <small>Kotlin, Express, MongoDB, React</small>
-        </article>
+      <h2 class="title">Stack</h2>
+      <div class="stack-head">
+        <p class="intro" style="margin:0"><span lang="fr">Chaque point est un outil réellement utilisé dans un poste ou un projet. Cliquez sur un outil pour voir où.</span><span lang="en">Each dot is a tool actually used in a job or project. Click a tool to see where.</span></p>
+        <span class="seg" role="group" aria-label="Affichage"><button type="button" data-view="data" aria-pressed="true">Data</button><button type="button" data-view="all" aria-pressed="false"><span lang="fr">Tout</span><span lang="en">All</span></button></span>
+      </div>
+      <p class="readline" id="readline" aria-live="polite"></p>
+      <div class="scroller"><table class="matrix" id="matrix"></table></div>
+      <p class="alsos"><span lang="fr">Également pratiqués :</span><span lang="en">Also used:</span> Microsoft Fabric, Azure, Databricks, Airflow, Qlik Sense, R, PySpark, Docker, n8n.</p>
+
+      <h3 style="margin:48px 0 6px; font-size:20px; color:var(--ink)"><span lang="fr">Projets de développement</span><span lang="en">Development projects</span></h3>
+      <p style="margin:0 0 14px; color:var(--slate); max-width:66ch"><span lang="fr">Avant la data, j'ai appris à livrer des applications complètes. Ça me sert pour automatiser et parler le langage des équipes techniques.</span><span lang="en">Before data, I learned to ship full applications. It helps me automate and speak the language of engineering teams.</span></p>
+      <div class="devlist">
+        <article><h4><a href="https://github.com/mohfofana/Notria">Notria</a></h4><p lang="fr">Accompagnement scolaire avec chat pédagogique (RAG, sources citées).</p><p lang="en">Tutoring platform with an educational chat (RAG, cited sources).</p><small>Next.js · Express · PostgreSQL · pgvector</small></article>
+        <article><h4><a href="https://github.com/mohfofana/Moodplae">MoodPlae</a></h4><p lang="fr">Recommandation musicale selon l'humeur, via l'API Spotify.</p><p lang="en">Mood-based music recommendation with the Spotify API.</p><small>Python · scikit-learn · FastAPI</small></article>
+        <article><h4><a href="https://github.com/mohfofana/moovie_app">Cinescope</a></h4><p lang="fr">Streaming fullstack : catalogue, filtres, watchlist.</p><p lang="en">Fullstack streaming app: catalogue, filters, watchlist.</p><small>React · NestJS · Prisma</small></article>
+        <article><h4><a href="https://github.com/mohfofana/Revolte-TechOps">Revolte TechOps</a></h4><p lang="fr">Gestion de tickets avec statistiques.</p><p lang="en">Ticketing app with statistics.</p><small>React · NestJS · PostgreSQL</small></article>
+        <article><h4><a href="https://github.com/mohfofana/bookroom">Bookroom</a></h4><p lang="fr">Réservation de salles : app Android, API, administration.</p><p lang="en">Room booking: Android app, API, admin.</p><small>Kotlin · Express · MongoDB · React</small></article>
       </div>
     </div>
   </section>
 
   <section class="block" id="parcours">
     <div class="wrap">
-      <h2 class="title">Parcours</h2>
-      <ol class="path" reversed>
-        <li>
-          <time>oct. 2026 – déc. 2026</time>
-          <div><h3>Responsable Qualité de Service, Expérience Client</h3>
-          <p class="org">La Poste, DEX Courrier Colis Bretagne et Pays de la Loire, Rennes</p>
-          <p>Pilotage de la qualité de service régionale, dashboards Power BI pour le comité de direction, analyse multi-sources SAP, SQL Server et bases clients.</p></div>
+      <h2 class="title"><span lang="fr">Suivi de parcours</span><span lang="en">Career tracking</span></h2>
+      <p class="intro"><span lang="fr">Présenté comme un suivi de colis, parce que c'est mon quotidien depuis 2025.</span><span lang="en">Shown as parcel tracking, because that has been my daily work since 2025.</span></p>
+      <ol class="track">
+        <li class="now">
+          <time>10.2026 – 12.2026</time>
+          <div><h3><span lang="fr">Responsable Qualité de Service, Expérience Client</span><span lang="en">Service Quality and Customer Experience Manager</span><span class="status"><span lang="fr">En cours</span><span lang="en">In progress</span></span></h3>
+          <p class="org">La Poste, Bretagne &amp; Pays de la Loire, Rennes</p>
+          <p lang="fr">Pilotage de la qualité de service régionale, tableaux de bord Power BI pour le comité de direction, analyse SAP, SQL Server et bases clients.</p><p lang="en">Regional service quality, Power BI dashboards for the leadership team, analysis across SAP, SQL Server and customer databases.</p></div>
         </li>
         <li>
-          <time>sept. 2025 – sept. 2026</time>
-          <div><h3>Data Analyst BI, alternance</h3>
+          <time>09.2025 – 09.2026</time>
+          <div><h3><span lang="fr">Data Analyst BI, alternance</span><span lang="en">BI Data Analyst, work-study</span><span class="status"><span lang="fr">Livré</span><span lang="en">Delivered</span></span></h3>
           <p class="org">La Poste, Rennes</p>
-          <p>Plus de 15 rapports Power BI automatisés pour le suivi logistique courrier et colis, modélisation DAX et Power Query, automatisations VBA et Power Automate.</p></div>
+          <p lang="fr">Plus de 15 rapports Power BI automatisés pour le suivi logistique, modélisation DAX et Power Query, automatisations VBA et Power Automate.</p><p lang="en">15+ automated Power BI reports for logistics tracking, DAX and Power Query modelling, VBA and Power Automate automation.</p></div>
         </li>
         <li>
           <time>2024 – 2026</time>
-          <div><h3>MSc Data et Intelligence Artificielle</h3>
+          <div><h3>MSc Data &amp; Intelligence Artificielle<span class="status"><span lang="fr">Livré</span><span lang="en">Delivered</span></span></h3>
           <p class="org">EPITECH Paris</p>
           <p>Machine learning, deep learning, NLP, data engineering, cloud.</p></div>
         </li>
         <li>
           <time>2024</time>
-          <div><h3>Développeur Fullstack et Data Analyst, stage</h3>
+          <div><h3><span lang="fr">Développeur fullstack et Data Analyst, stage</span><span lang="en">Fullstack developer and data analyst, internship</span><span class="status"><span lang="fr">Livré</span><span lang="en">Delivered</span></span></h3>
           <p class="org">Groupe FRAB, Rennes</p>
-          <p>Applications web React, Django et PostgreSQL, analyse des ventes et reportings automatisés.</p></div>
+          <p lang="fr">Applications web React, Django et PostgreSQL, analyse des ventes.</p><p lang="en">React, Django and PostgreSQL web apps, sales analysis.</p></div>
         </li>
         <li>
           <time>2023</time>
-          <div><h3>Data Analyst et Développeur Mobile, stage</h3>
+          <div><h3><span lang="fr">Data Analyst et développeur mobile, stage</span><span lang="en">Data analyst and mobile developer, internship</span><span class="status"><span lang="fr">Livré</span><span lang="en">Delivered</span></span></h3>
           <p class="org">Casys Technologie, Abidjan</p>
-          <p>Analyse de données marketing et suivi des KPI commerciaux, applications Flutter et React Native.</p></div>
+          <p lang="fr">Données marketing et KPI commerciaux, applications Flutter et React Native.</p><p lang="en">Marketing data and sales KPIs, Flutter and React Native apps.</p></div>
         </li>
         <li>
           <time>2021 – 2024</time>
-          <div><h3>Licence Informatique</h3>
+          <div><h3><span lang="fr">Licence Informatique</span><span lang="en">Bachelor in Computer Science</span><span class="status"><span lang="fr">Livré</span><span lang="en">Delivered</span></span></h3>
           <p class="org">Université de Rennes 1</p></div>
         </li>
       </ol>
-
-      <div class="skills" style="margin-top: 48px">
-        <div><h3>BI et visualisation</h3><p>Power BI (DAX, Power Query), Qlik Sense, Excel et VBA, Power Automate, Plotly</p></div>
-        <div><h3>Data et modélisation</h3><p>SQL, Python (pandas, scikit-learn, PySpark), R, dbt, DuckDB</p></div>
-        <div><h3>Plateformes</h3><p>SQL Server, PostgreSQL, SAP, Azure, Microsoft Fabric, Databricks, Airflow</p></div>
-      </div>
     </div>
   </section>
 </main>
 
 <footer id="contact">
   <div class="wrap">
-    <h2>Parlons de votre équipe data</h2>
-    <p>Je cherche un CDI de Data Analyst, Consultant BI ou Analytics Engineer, à partir de décembre 2026, en France, au Luxembourg, en Belgique, en Suisse ou ailleurs en Europe. Français natif, anglais courant.</p>
+    <h2><span lang="fr">Parlons de votre équipe data</span><span lang="en">Let's talk about your data team</span></h2>
+    <p><span lang="fr">Je cherche un CDI de Data Analyst, Consultant BI ou Analytics Engineer à partir de décembre 2026, en France, en Europe ou au Canada. Français natif, anglais courant.</span><span lang="en">I'm looking for a permanent Data Analyst, BI Consultant or Analytics Engineer role from December 2026, in France, Europe or Canada. Native French, fluent English.</span></p>
     <div class="contact">
       <a class="btn" href="mailto:mohamedaboubakar.fofana@gmail.com">mohamedaboubakar.fofana@gmail.com</a>
       <a href="https://www.linkedin.com/in/mohamed-aboubakar-fofana">LinkedIn</a>
       <a href="https://github.com/mohfofana">GitHub</a>
-      <a href="assets/CV_Mohamed_Fofana.pdf" download>CV en PDF</a>
+      <a href="assets/CV_Mohamed_Fofana.pdf" download><span lang="fr">CV en PDF</span><span lang="en">Resume (PDF)</span></a>
     </div>
-    <p class="fine">Les projets data utilisent le jeu de données public d'Olist (Kaggle, licence CC BY-NC-SA 4.0).</p>
+    <p class="fine"><span lang="fr">Les projets data utilisent le jeu de données public d'Olist (Kaggle, licence CC BY-NC-SA 4.0).</span><span lang="en">Data projects use the public Olist dataset (Kaggle, CC BY-NC-SA 4.0 license).</span></p>
   </div>
 </footer>
+
+<script>
+(() => {
+  const NS = "http://www.w3.org/2000/svg";
+  const C = { ink: "#0F3D5C", signal: "#E4572E", slate: "#5B6B7A", line: "#D8DFE6", grid: "#EEF1F4", wash: "#B8C4CF", text: "#1F2933" };
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  let lang = "fr";
+  const el = (tag, attrs = {}, parent) => { const n = document.createElementNS(NS, tag); for (const k in attrs) n.setAttribute(k, attrs[k]); if (parent) parent.appendChild(n); return n; };
+  const loc = () => lang === "fr" ? "fr-FR" : "en-US";
+  const fmt = (v, d = 0) => v.toLocaleString(loc(), { minimumFractionDigits: d, maximumFractionDigits: d });
+  const pct = (v, d = 0) => fmt(v * 100, d) + (lang === "fr" ? " %" : "%");
+  const month = (m, style) => new Date(m + "-01T12:00:00").toLocaleDateString(loc(), { month: style, year: "numeric" });
+  function placeTip(tip, svg, vbW, vbH, x, y) {
+    const r = svg.getBoundingClientRect(), b = svg.parentElement.getBoundingClientRect();
+    tip.style.left = (r.left - b.left + x * r.width / vbW) + "px";
+    tip.style.top = (r.top - b.top + y * r.height / vbH) + "px";
+    tip.hidden = false;
+  }
+  function bind(nodes, show, hide) { nodes.forEach(n => { n.addEventListener("mouseenter", show); n.addEventListener("mouseleave", hide); n.addEventListener("focus", show); n.addEventListener("blur", hide); n.addEventListener("touchstart", show, { passive: true }); }); }
+
+  const T = {
+    fr: { ontime: "à l'heure", days: n => n === 1 ? "1 jour" : n >= 16 ? "16 j et +" : n + " jours", beyond: "au-delà de 3 jours", d: " j",
+          read: (t, n, w) => `<b>${t}</b> : utilisé dans ${n} ${n > 1 ? "postes ou projets" : "poste ou projet"} (${w}).`,
+          hint: "Cliquez sur un outil pour voir où je l'ai utilisé.", also: " et des projets de développement",
+          customers: "des clients", revenue: "du CA", late: "en retard", peak: "mars 2018 · ",
+          dataGroup: "Postes et projets data", devGroup: "Projets de développement",
+          layers: ["8 fichiers bruts", "7 staging", "2 intermédiaires", "5 marts"],
+          layerTip: ["CSV Olist compressés, lus sur place", "typage, renommage, dédoublonnage", "articles et paiements par commande", "tables métier testées, export Parquet"] },
+    en: { ontime: "on time", days: n => n === 1 ? "1 day" : n >= 16 ? "16+ days" : n + " days", beyond: "beyond 3 days", d: " d",
+          read: (t, n, w) => `<b>${t}</b>: used in ${n} ${n > 1 ? "jobs or projects" : "job or project"} (${w}).`,
+          hint: "Click a tool to see where I used it.", also: " and development projects",
+          customers: "of customers", revenue: "of revenue", late: "late", peak: "March 2018 · ",
+          dataGroup: "Data jobs and projects", devGroup: "Development projects",
+          layers: ["8 raw files", "7 staging", "2 intermediate", "5 marts"],
+          layerTip: ["compressed Olist CSVs, read in place", "typing, renaming, dedup", "items and payments per order", "tested business tables, Parquet export"] }
+  };
+
+  /* 1. Delay simulator: real average rating by day of delay (0 = on time, 16 = 16 days or more) */
+  const SIM = [[0,4.28,.095,89936],[1,3.73,.198,825],[2,3.16,.349,545],[3,2.68,.506,500],[4,2.47,.567,453],[5,2.16,.658,447],[6,1.81,.766,419],[7,1.91,.735,483],[8,1.71,.786,336],[9,1.64,.815,227],[10,1.58,.831,207],[11,1.72,.796,181],[12,1.69,.8,160],[13,1.71,.791,196],[14,1.6,.819,171],[15,1.72,.786,159],[16,1.72,.785,1225]];
+  const sim = document.getElementById("sim-chart"), range = document.getElementById("delay");
+  const sx = d => 44 + d * (456 / 16), sy = s => 18 + (5 - s) * 40;
+  let simDot, simLine, simLab, drawn = false;
+  function drawSim() {
+    sim.innerHTML = "";
+    for (let s = 1; s <= 5; s++) { el("line", { x1: 44, x2: 500, y1: sy(s), y2: sy(s), stroke: C.grid }, sim); el("text", { x: 34, y: sy(s) + 4, "font-size": 12, fill: C.slate, "text-anchor": "end" }, sim).textContent = s; }
+    el("rect", { x: sx(3.5), y: 10, width: 500 - sx(3.5), height: 172, fill: C.signal, opacity: .06 }, sim);
+    el("text", { x: sx(3.5) + 8, y: 26, "font-size": 12, fill: C.signal, "font-weight": 700 }, sim).textContent = T[lang].beyond;
+    const path = el("polyline", { points: SIM.map(([d, s]) => `${sx(d)},${sy(s)}`).join(" "), fill: "none", stroke: C.ink, "stroke-width": 3, "stroke-linejoin": "round" }, sim);
+    if (!reduce && !drawn) { path.style.strokeDasharray = 900; path.style.strokeDashoffset = 900; path.getBoundingClientRect(); path.style.transition = "stroke-dashoffset 1.4s ease-out"; path.style.strokeDashoffset = 0; drawn = true; }
+    [0, 4, 8, 12, 16].forEach(d => { el("text", { x: sx(d), y: 202, "font-size": 12, fill: C.slate, "text-anchor": "middle" }, sim).textContent = d === 0 ? T[lang].ontime : d === 16 ? "16+" : d + T[lang].d; });
+    simLine = el("line", { y1: 10, y2: 182, stroke: C.signal, "stroke-dasharray": "3 3" }, sim);
+    simDot = el("circle", { r: 7, fill: C.ink, stroke: "#fff", "stroke-width": 2 }, sim);
+    simLab = el("text", { "font-size": 13, "font-weight": 700, "text-anchor": "middle" }, sim);
+    updateSim();
+  }
+  function updateSim() {
+    const d = +range.value, [, s, neg, n] = SIM[d], x = sx(d), y = sy(s), bad = d > 0;
+    simLine.setAttribute("x1", x); simLine.setAttribute("x2", x);
+    simDot.setAttribute("cx", x); simDot.setAttribute("cy", y); simDot.setAttribute("fill", bad ? C.signal : C.ink);
+    simLab.setAttribute("x", Math.min(Math.max(x, 30), 486)); simLab.setAttribute("y", y - 14); simLab.setAttribute("fill", bad ? C.signal : C.ink); simLab.textContent = fmt(s, 2);
+    const sc = document.getElementById("sim-score"); sc.firstChild.nodeValue = fmt(s, 2); sc.classList.toggle("bad", bad);
+    document.getElementById("sim-neg").textContent = pct(neg);
+    document.getElementById("sim-n").textContent = fmt(n);
+    document.getElementById("delay-label").textContent = d === 0 ? T[lang].ontime : T[lang].days(d);
+  }
+  range.addEventListener("input", updateSim);
+
+  /* 2. Monthly late rate */
+  const LATE = [["2016-10",.008],["2017-01",.029],["2017-02",.03],["2017-03",.046],["2017-04",.066],["2017-05",.03],["2017-06",.03],["2017-07",.028],["2017-08",.029],["2017-09",.044],["2017-10",.042],["2017-11",.124],["2017-12",.075],["2018-01",.057],["2018-02",.141],["2018-03",.19],["2018-04",.045],["2018-05",.066],["2018-06",.012],["2018-07",.034],["2018-08",.062]];
+  const mi = m => { const [y, mo] = m.split("-").map(Number); return (y - 2016) * 12 + mo - 10; };
+  function drawLate() {
+    const svg = document.getElementById("viz-late"), tip = document.getElementById("tip-late"); svg.innerHTML = ""; tip.hidden = true;
+    const X = i => 50 + i * (490 / 22), Y = v => 210 - v * 900;
+    [0, .05, .10, .15, .20].forEach(v => { el("line", { x1: 50, x2: 540, y1: Y(v), y2: Y(v), stroke: C.grid }, svg); el("text", { x: 42, y: Y(v) + 4, "font-size": 12, fill: C.slate, "text-anchor": "end" }, svg).textContent = pct(v); });
+    el("line", { x1: 50, x2: 540, y1: Y(.068), y2: Y(.068), stroke: C.slate, "stroke-dasharray": "3 4" }, svg);
+    ["2017-01", "2017-07", "2018-01", "2018-07"].forEach(m => { el("text", { x: X(mi(m)), y: 234, "font-size": 12, fill: C.slate, "text-anchor": "middle" }, svg).textContent = month(m, "short"); });
+    const pts = LATE.map(([m, v]) => `${X(mi(m))},${Y(v)}`);
+    el("polygon", { points: `${X(0)},${Y(0)} ${pts.join(" ")} ${X(22)},${Y(0)}`, fill: C.ink, opacity: .08 }, svg);
+    el("polyline", { points: pts.join(" "), fill: "none", stroke: C.ink, "stroke-width": 2.5, "stroke-linejoin": "round" }, svg);
+    el("text", { x: X(17) + 10, y: Y(.19) + 4, "font-size": 13, "font-weight": 700, fill: C.signal }, svg).textContent = T[lang].peak + pct(.19);
+    LATE.forEach(([m, v]) => {
+      const r0 = v > .1 ? 5.5 : 3.5, x = X(mi(m)), y = Y(v);
+      const hit = el("rect", { x: x - 11, y: 10, width: 22, height: 200, fill: "transparent" }, svg);
+      const c = el("circle", { cx: x, cy: y, r: r0, fill: v > .1 ? C.signal : C.ink, tabindex: 0 }, svg);
+      bind([hit, c], () => { tip.textContent = `${month(m, "long")} · ${pct(v, 1)} ${T[lang].late}`; placeTip(tip, svg, 560, 250, x, y); c.setAttribute("r", 7); }, () => { tip.hidden = true; c.setAttribute("r", r0); });
+    });
+  }
+
+  /* 3. Segments: share of customers vs share of revenue */
+  const SEG = [["Endormis","Dormant",.406,.230],["Gros paniers endormis","Dormant big baskets",.089,.230],["Nouveaux gros paniers","New big baskets",.061,.165],["Nouveaux clients","New customers",.275,.159],["Déçus","Disappointed",.139,.159],["Fidèles à réactiver","Loyal, to reactivate",.017,.031],["Fidèles actifs","Active loyal",.013,.025]];
+  function drawSeg() {
+    const svg = document.getElementById("viz-seg"), tip = document.getElementById("tip-seg"); svg.innerHTML = ""; tip.hidden = true;
+    const X0 = 172, X = v => X0 + v * (360 / .42), rowH = 38;
+    [0, .1, .2, .3, .4].forEach(v => { el("line", { x1: X(v), x2: X(v), y1: 6, y2: 272, stroke: C.grid }, svg); el("text", { x: X(v), y: 290, "font-size": 12, fill: C.slate, "text-anchor": "middle" }, svg).textContent = pct(v); });
+    SEG.forEach(([fr, en, cust, rev], i) => {
+      const y = 10 + i * rowH;
+      el("text", { x: X0 - 10, y: y + 20, "font-size": 13, fill: C.text, "text-anchor": "end" }, svg).textContent = lang === "fr" ? fr : en;
+      const b1 = el("rect", { x: X0, y: y + 3, width: Math.max(1, X(cust) - X0), height: 13, fill: C.wash }, svg);
+      el("rect", { x: X0, y: y + 18, width: Math.max(1, X(rev) - X0), height: 13, fill: rev > cust ? C.signal : C.ink }, svg);
+      const hit = el("rect", { x: 0, y, width: 560, height: rowH - 2, fill: "transparent", tabindex: 0 }, svg);
+      bind([hit], () => { tip.textContent = `${pct(cust, 1)} ${T[lang].customers} · ${pct(rev, 1)} ${T[lang].revenue}`; placeTip(tip, svg, 560, 300, Math.min(X(Math.max(cust, rev)), 440), y + 4); b1.setAttribute("fill", C.slate); }, () => { tip.hidden = true; b1.setAttribute("fill", C.wash); });
+    });
+  }
+
+  /* 4. Lineage of the dbt project */
+  function drawDag() {
+    const svg = document.getElementById("viz-dag"), tip = document.getElementById("tip-dag"); svg.innerHTML = ""; tip.hidden = true;
+    const cols = [[8, 50], [7, 190], [2, 330], [5, 480]], H = 206, top = 16;
+    const pos = cols.map(([n, x]) => Array.from({ length: n }, (_, i) => [x, top + (i + .5) * (H / n)]));
+    const edges = [];
+    pos[0].forEach((p, i) => edges.push([p, pos[1][Math.min(i, 6)]]));
+    pos[1].forEach((p, i) => edges.push(i < 5 ? [p, pos[2][i < 2 ? 0 : 1]] : [p, pos[3][0]]));
+    pos[2].forEach(p => pos[3].forEach(q => edges.push([p, q])));
+    edges.forEach(([a, b]) => el("path", { d: `M${a[0]},${a[1]} C${(a[0] + b[0]) / 2},${a[1]} ${(a[0] + b[0]) / 2},${b[1]} ${b[0]},${b[1]}`, fill: "none", stroke: C.line, "stroke-width": 1.2 }, svg));
+    pos.forEach((col, ci) => {
+      const g = el("g", { tabindex: 0 }, svg), r0 = ci === 3 ? 8 : 6;
+      col.forEach(([x, y]) => el("circle", { cx: x, cy: y, r: r0, fill: ci === 3 ? C.signal : C.ink }, g));
+      el("rect", { x: cols[ci][1] - 30, y: 8, width: 60, height: 222, fill: "transparent" }, g);
+      el("text", { x: cols[ci][1], y: 248, "font-size": 12.5, fill: C.slate, "text-anchor": "middle" }, svg).textContent = T[lang].layers[ci];
+      bind([g], () => { tip.textContent = T[lang].layerTip[ci]; placeTip(tip, svg, 560, 260, Math.min(Math.max(cols[ci][1], 110), 450), 12); g.querySelectorAll("circle").forEach(c => c.setAttribute("r", r0 + 2)); }, () => { tip.hidden = true; g.querySelectorAll("circle").forEach(c => c.setAttribute("r", r0)); });
+    });
+  }
+
+  /* 5. Stack matrix: where each tool was really used */
+  const COLS = [
+    ["qs", "La Poste QS", "La Poste QS", 1], ["bi", "La Poste BI", "La Poste BI", 1], ["pipe", "Pipeline", "Pipeline", 1], ["late", "Retards", "Delays", 1], ["segm", "Segmentation", "Segmentation", 1],
+    ["frab", "FRAB", "FRAB", 0], ["casys", "Casys", "Casys", 0], ["notria", "Notria", "Notria", 0], ["cine", "Cinescope", "Cinescope", 0], ["mood", "MoodPlae", "MoodPlae", 0], ["rev", "Revolte", "Revolte", 0], ["book", "Bookroom", "Bookroom", 0]];
+  const ROWS = [
+    ["Power BI · DAX", ["qs", "bi"]], ["Power Query (M)", ["bi"]], ["SQL", ["qs", "bi", "pipe", "frab", "notria", "rev"]], ["SAP", ["qs", "bi"]],
+    ["Excel · VBA", ["qs", "bi"]], ["Power Automate", ["qs", "bi"]], ["Python · pandas", ["pipe", "late", "segm", "frab", "mood"]], ["scikit-learn", ["late", "segm", "mood"]],
+    ["dbt · DuckDB", ["pipe"]], ["Plotly", ["late", "segm"]], ["GitHub Actions", ["pipe"]], ["PostgreSQL", ["frab", "notria", "rev"]],
+    ["React", ["frab", "notria", "cine", "rev", "book"]], ["NestJS", ["cine", "rev"]], ["Django", ["frab"]], ["Express", ["notria", "book"]],
+    ["Kotlin", ["book"]], ["Flutter · React Native", ["casys"]], ["RAG · LLM", ["notria"]]];
+  const DATA = new Set(COLS.filter(c => c[3]).map(c => c[0]));
+  const table = document.getElementById("matrix"), readline = document.getElementById("readline");
+  let active = null;
+  function drawMatrix() {
+    const i = lang === "fr" ? 1 : 2;
+    let h = `<thead><tr><th></th><th class="grp" colspan="5">${T[lang].dataGroup}</th><th class="grp dev" colspan="7">${T[lang].devGroup}</th></tr><tr><th></th>`;
+    COLS.forEach(c => h += `<th scope="col" class="${c[3] ? "" : "dev"}">${c[i]}</th>`);
+    h += "</tr></thead><tbody>";
+    ROWS.forEach(([name, uses], r) => {
+      h += `<tr data-r="${r}" class="${uses.some(u => DATA.has(u)) ? "" : "devrow"}"><th scope="row"><button type="button" aria-pressed="false">${name}</button></th>`;
+      COLS.forEach(c => h += `<td class="${c[3] ? "" : "dev"}"><span class="cell">${uses.includes(c[0]) ? `<span class="dot" title="${name} · ${c[i]}"></span>` : ""}</span></td>`);
+      h += "</tr>";
+    });
+    table.innerHTML = h + "</tbody>";
+    table.querySelectorAll("tbody th button").forEach(b => b.addEventListener("click", () => { const r = +b.closest("tr").dataset.r; active = active === r ? null : r; paintMatrix(); }));
+    paintMatrix();
+  }
+  function paintMatrix() {
+    const all = table.classList.contains("all"), i = lang === "fr" ? 1 : 2;
+    if (active !== null && !all && !ROWS[active][1].some(u => DATA.has(u))) active = null;
+    table.querySelectorAll("tbody tr").forEach(tr => { const r = +tr.dataset.r; tr.classList.toggle("on", r === active); tr.classList.toggle("dim", active !== null && r !== active); tr.querySelector("button").setAttribute("aria-pressed", r === active); });
+    if (active === null) { readline.textContent = T[lang].hint; return; }
+    const [name, uses] = ROWS[active], shown = uses.filter(u => all || DATA.has(u));
+    readline.innerHTML = T[lang].read(name, uses.length, shown.map(u => COLS.find(c => c[0] === u)[i]).join(", ") + (shown.length < uses.length ? T[lang].also : ""));
+  }
+  document.querySelectorAll("[data-view]").forEach(b => b.addEventListener("click", () => {
+    document.querySelectorAll("[data-view]").forEach(x => x.setAttribute("aria-pressed", x === b)); table.classList.toggle("all", b.dataset.view === "all"); paintMatrix();
+  }));
+
+  /* counters */
+  const counterText = n => (n.dataset.prefix || "") + fmt(+n.dataset.count) + (n.dataset.suffix || "");
+  function countUp() {
+    if (reduce) return;
+    document.querySelectorAll("[data-count]").forEach(n => {
+      const end = +n.dataset.count, pre = n.dataset.prefix || "", suf = n.dataset.suffix || "", t0 = performance.now();
+      const step = t => { const k = Math.min(1, (t - t0) / 1200), e = 1 - Math.pow(1 - k, 3); n.textContent = pre + fmt(Math.round(end * e)) + suf; if (k < 1) requestAnimationFrame(step); };
+      requestAnimationFrame(step);
+    });
+  }
+
+  /* language */
+  function setLang(l) {
+    lang = l; document.documentElement.lang = l; document.documentElement.dataset.lang = l;
+    document.querySelectorAll("[data-set-lang]").forEach(b => b.setAttribute("aria-pressed", b.dataset.setLang === l));
+    try { localStorage.setItem("lang", l); } catch (e) {}
+    drawSim(); drawLate(); drawSeg(); drawDag(); drawMatrix();
+    document.querySelectorAll("[data-count]").forEach(n => n.textContent = counterText(n));
+  }
+  document.querySelectorAll("[data-set-lang]").forEach(b => b.addEventListener("click", () => setLang(b.dataset.setLang)));
+  let saved = null; try { saved = localStorage.getItem("lang"); } catch (e) {}
+  setLang(saved === "en" || saved === "fr" ? saved : ((navigator.language || "fr").toLowerCase().startsWith("fr") ? "fr" : "en"));
+  countUp();
+})();
+</script>
 </body>
 </html>
